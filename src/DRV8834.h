@@ -14,8 +14,9 @@
 
 class DRV8834 : public BasicStepperDriver {
 protected:
-    int m0_pin = PIN_UNCONNECTED;
+    int m0_pin = PIN_UNCONNECTED;	// set to -1 if not connected.
     int m1_pin = PIN_UNCONNECTED;
+	int sleep_pin = PIN_UNCONNECTED;
     void init(void);
     // tWH(STEP) pulse duration, STEP high, min value (1.9us)
     static const int step_high_min = 2;
@@ -35,7 +36,9 @@ public:
     /*
      * Fully wired. All the necessary control pins for DRV8834 are connected.
      */
-    DRV8834(int steps, int dir_pin, int step_pin, int m0_pin, int m1_pin);
+    DRV8834(int steps, int dir_pin, int step_pin, int m0_pin, int m1_pin, int sleep_pin);
     unsigned setMicrostep(unsigned microsteps);
+	void sleep();
+	void wake();
 };
 #endif // DRV8834_H
